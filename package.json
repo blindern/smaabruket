@@ -18,7 +18,7 @@
     "@types/date-fns": "2.6.0",
     "@types/domready": "1.0.0",
     "@types/jquery": "3.5.5",
-    "@types/react": "17.0.5",
+    "@types/react": "17.0.6",
     "@types/react-dom": "17.0.5",
     "autoprefixer": "9.8.6",
     "awesome-typescript-loader": "5.2.1",
