@@ -1,3 +1,4 @@
-node_modules
-public/bilder/original
-public/build
+/node_modules/
+/public/bilder/original
+/public/build/
+/build/

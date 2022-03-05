@@ -7,7 +7,6 @@ import {
   isSameDay,
   isToday,
 } from 'date-fns'
-// import { Promise } from 'es6-promise'
 import React, { Component } from 'react'
 
 const availabilityUrl =
@@ -61,11 +60,6 @@ type IWeekDays = [IDay, IDay, IDay, IDay, IDay, IDay, IDay]
 interface IWeek {
   weeknumber: number
   days: IWeekDays
-}
-
-function getDayOfWeek(date: Date) {
-  const day = date.getDay()
-  return day === 0 ? 7 : day
 }
 
 function getClassNameOfType(type: string | null) {
@@ -161,12 +155,13 @@ async function getUpcomingEvents() {
     throw new Error(response.statusText)
   }
 
-  return response.json()
+  return response.json() as unknown as IApiData
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 class Calendar extends Component<{}, IState> {
   private unmount = false
-  public state = {
+  public state: IState = {
     data: null,
     loading: false,
   }
@@ -190,7 +185,7 @@ class Calendar extends Component<{}, IState> {
       return <p>Henter oversikt over bookinger...</p>
     }
 
-    const data = this.state.data as IApiData | null
+    const data = this.state.data
 
     if (data == null) {
       return (
@@ -202,7 +197,6 @@ class Calendar extends Component<{}, IState> {
     }
 
     const weeks: IWeek[] = convertToWeeks(data.bookings, data.first, data.until)
-    const today = format(new Date(), 'yyyy-MM-dd')
 
     return (
       <>
@@ -240,10 +234,9 @@ class Calendar extends Component<{}, IState> {
                 {week.days.map((day, dayIdx) => (
                   <td
                     key={dayIdx}
-                    className={
-                      getClassNameOfType(day.type) +
-                      (isToday(day.date) ? ' idag' : '')
-                    }
+                    className={`${getClassNameOfType(day.type) ?? ''}${
+                      isToday(day.date) ? ' idag' : ''
+                    }`}
                   >
                     {format(day.date, 'd')}
                     {(isFirstDayOfMonth(day.date) ||
