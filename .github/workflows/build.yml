@@ -1,0 +1,26 @@
+name: Build and conditionally deploy
+on:
+  - push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '12'
+      - run: npm ci
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
+      - name: Install SSH key
+        if: github.ref == 'refs/heads/master'
+        env:
+          FBS_SSH_KEY: ${{ secrets.FBS_SSH_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$FBS_SSH_KEY" >~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+      - name: Deploy
+        if: github.ref == 'refs/heads/master'
+        run: ./scripts/deploy.sh
