@@ -7,7 +7,7 @@ import {
   isSameDay,
   isToday,
 } from 'date-fns'
-import React, { Component } from 'react'
+import React from 'react'
 
 const availabilityUrl =
   'https://foreningenbs.no/smaabruket-availability-api/availability'
@@ -33,33 +33,33 @@ function getMonthName(date: Date) {
   return months[Number(format(date, 'M')) - 1]
 }
 
-interface IBooking {
+interface Booking {
   from: string
   until: string
   type: string
 }
 
-interface IApiData {
-  bookings: IBooking[]
+interface ApiData {
+  bookings: Booking[]
   first: string
   until: string
 }
 
-interface IState {
-  data: IApiData | null
+interface State {
+  data: ApiData | null
   loading: boolean
 }
 
-interface IDay {
+interface Day {
   date: Date
   type: string | null
 }
 
-type IWeekDays = [IDay, IDay, IDay, IDay, IDay, IDay, IDay]
+type WeekDays = [Day, Day, Day, Day, Day, Day, Day]
 
-interface IWeek {
+interface Week {
   weeknumber: number
-  days: IWeekDays
+  days: WeekDays
 }
 
 function getClassNameOfType(type: string | null) {
@@ -90,20 +90,20 @@ function buildDays(first: string, until: string): Date[] {
   return result
 }
 
-interface IBookingTypes {
+interface BookingTypes {
   [date: string]: string
 }
 
-function getBookingDateTypes(data: IBooking[]) {
+function getBookingDateTypes(data: Booking[]) {
   return data.reduce((acc, booking) => {
     buildDays(booking.from, booking.until).forEach((date) => {
       acc[format(date, 'yyyy-MM-dd')] = booking.type
     })
     return acc
-  }, {} as IBookingTypes)
+  }, {} as BookingTypes)
 }
 
-function getWeekDays(firstDay: Date, bookingTypes: IBookingTypes) {
+function getWeekDays(firstDay: Date, bookingTypes: BookingTypes) {
   const days = []
   for (let i = 0; i < 7; i++) {
     const date = addDays(firstDay, i)
@@ -115,21 +115,21 @@ function getWeekDays(firstDay: Date, bookingTypes: IBookingTypes) {
     })
   }
 
-  return days as IWeekDays
+  return days as WeekDays
 }
 
 function convertToWeeks(
-  bookings: IBooking[],
+  bookings: Booking[],
   first: string,
   until: string,
-): IWeek[] {
+): Week[] {
   if (!isMonday(new Date(first))) {
     throw Error('Expected first date to be a monday')
   }
 
   const bookingTypes = getBookingDateTypes(bookings)
 
-  const weeks: IWeek[] = []
+  const weeks: Week[] = []
 
   let date = new Date(first)
   const untilDate = new Date(until)
@@ -146,138 +146,147 @@ function convertToWeeks(
 }
 
 async function getUpcomingEvents() {
-  const headers = new Headers()
-  headers.append('Accept', 'application/json')
-  const request = new Request(availabilityUrl, { headers })
-  const response = await fetch(request)
+  const response = await fetch(availabilityUrl, {
+    headers: {
+      Accept: 'application/json',
+    },
+  })
 
   if (!response.ok) {
     throw new Error(response.statusText)
   }
 
-  return response.json() as unknown as IApiData
+  return response.json() as unknown as ApiData
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-class Calendar extends Component<{}, IState> {
-  private unmount = false
-  public state: IState = {
+const Calendar: React.FC = () => {
+  const [state, setState] = React.useState<State>(() => ({
     data: null,
-    loading: false,
-  }
-  public async componentDidMount() {
-    this.setState({
-      loading: true,
-    })
-    const res = await getUpcomingEvents()
-    if (!this.unmount) {
-      this.setState({
-        data: res,
-        loading: false,
+    loading: true,
+  }))
+
+  React.useEffect(() => {
+    let mounted = true
+
+    getUpcomingEvents()
+      .then((data) => {
+        if (mounted) {
+          setState({
+            data,
+            loading: false,
+          })
+        }
       })
+      .catch((err) => {
+        if (mounted) {
+          console.error('Failed fetching data', err)
+          setState({
+            data: null,
+            loading: false,
+          })
+        }
+      })
+
+    return () => {
+      mounted = false
     }
+  }, [])
+
+  if (state.loading) {
+    return <p>Henter oversikt over bookinger...</p>
   }
-  public componentWillUnmount() {
-    this.unmount = true
-  }
-  public render() {
-    if (this.state.loading) {
-      return <p>Henter oversikt over bookinger...</p>
-    }
 
-    const data = this.state.data
+  const data = state.data
 
-    if (data == null) {
-      return (
-        <p>
-          <b>Kalenderen er for øyeblikket ikke tilgjengelig.</b> Ta kontakt for
-          informasjon om ledige datoer.
-        </p>
-      )
-    }
-
-    const weeks: IWeek[] = convertToWeeks(data.bookings, data.first, data.until)
-
+  if (data == null) {
     return (
-      <>
-        <table className='hyttestyret_kalender'>
-          <thead>
-            <tr>
-              <th>Uke</th>
-              <th>
-                Mandag <span>til tirsdag</span>
-              </th>
-              <th>
-                Tirsdag <span>til onsdag</span>
-              </th>
-              <th>
-                Onsdag <span>til torsdag</span>
-              </th>
-              <th>
-                Torsdag <span>til fredag</span>
-              </th>
-              <th>
-                Fredag <span>til lørdag</span>
-              </th>
-              <th>
-                Lørdag <span>til søndag</span>
-              </th>
-              <th>
-                Søndag <span>til mandag</span>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {weeks.map((week, weekIdx) => (
-              <tr key={weekIdx}>
-                <td className='uke'>{week.weeknumber}</td>
-                {week.days.map((day, dayIdx) => (
-                  <td
-                    key={dayIdx}
-                    className={`${getClassNameOfType(day.type) ?? ''}${
-                      isToday(day.date) ? ' idag' : ''
-                    }`}
-                  >
-                    {format(day.date, 'd')}
-                    {(isFirstDayOfMonth(day.date) ||
-                      (weekIdx === 0 && dayIdx === 0)) && (
-                      <>
-                        .{' '}
-                        <span className='month'>{getMonthName(day.date)}</span>
-                        {showYear && <> {format(day.date, 'yyyy')}</>}
-                      </>
-                    )}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <div id='hyttestyret_legends'>
-          <p className='hyttestyret_legend ledig'>
-            <span />
-            Ledig
-          </p>
-          <p className='hyttestyret_legend reservert'>
-            <span />
-            Reservert
-          </p>
-          <p className='hyttestyret_legend reservert-hs'>
-            <span />
-            Reservert av hyttestyret
-          </p>
-          <p className='hyttestyret_legend beboerhelg'>
-            <span />
-            Reservert for beboere
-          </p>
-          <p className='hyttestyret_legend utleid'>
-            <span />
-            Opptatt
-          </p>
-        </div>
-      </>
+      <p>
+        <b>Kalenderen er for øyeblikket ikke tilgjengelig.</b> Ta kontakt for
+        informasjon om ledige datoer.
+      </p>
     )
   }
+
+  const weeks: Week[] = convertToWeeks(data.bookings, data.first, data.until)
+
+  return (
+    <>
+      <table className='hyttestyret_kalender'>
+        <thead>
+          <tr>
+            <th>Uke</th>
+            <th>
+              Mandag <span>til tirsdag</span>
+            </th>
+            <th>
+              Tirsdag <span>til onsdag</span>
+            </th>
+            <th>
+              Onsdag <span>til torsdag</span>
+            </th>
+            <th>
+              Torsdag <span>til fredag</span>
+            </th>
+            <th>
+              Fredag <span>til lørdag</span>
+            </th>
+            <th>
+              Lørdag <span>til søndag</span>
+            </th>
+            <th>
+              Søndag <span>til mandag</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {weeks.map((week, weekIdx) => (
+            <tr key={weekIdx}>
+              <td className='uke'>{week.weeknumber}</td>
+              {week.days.map((day, dayIdx) => (
+                <td
+                  key={dayIdx}
+                  className={`${getClassNameOfType(day.type) ?? ''}${
+                    isToday(day.date) ? ' idag' : ''
+                  }`}
+                >
+                  {format(day.date, 'd')}
+                  {(isFirstDayOfMonth(day.date) ||
+                    (weekIdx === 0 && dayIdx === 0)) && (
+                    <>
+                      . <span className='month'>{getMonthName(day.date)}</span>
+                      {showYear && <> {format(day.date, 'yyyy')}</>}
+                    </>
+                  )}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <div id='hyttestyret_legends'>
+        <p className='hyttestyret_legend ledig'>
+          <span />
+          Ledig
+        </p>
+        <p className='hyttestyret_legend reservert'>
+          <span />
+          Reservert
+        </p>
+        <p className='hyttestyret_legend reservert-hs'>
+          <span />
+          Reservert av hyttestyret
+        </p>
+        <p className='hyttestyret_legend beboerhelg'>
+          <span />
+          Reservert for beboere
+        </p>
+        <p className='hyttestyret_legend utleid'>
+          <span />
+          Opptatt
+        </p>
+      </div>
+    </>
+  )
 }
 
 export default Calendar
