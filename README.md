@@ -6,7 +6,7 @@ https://foreningenbs.no/smaabruket
 
 ```bash
 npm ci
-npm start
+npm run dev
 ```
 
 Data til kalender hentes fra applikasjonen https://github.com/blindern/smaabruket-availability-api

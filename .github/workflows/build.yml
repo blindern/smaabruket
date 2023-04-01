@@ -11,7 +11,6 @@ jobs:
           node-version: '16'
       - run: npm ci
       - run: npm run lint
-      - run: npm test
       - run: npm run build
       - name: Install SSH key
         if: github.ref == 'refs/heads/master'

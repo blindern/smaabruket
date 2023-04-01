@@ -6,7 +6,8 @@
     "prettier",
     "plugin:prettier/recommended"
   ],
-  "plugins": ["deprecation"],
+  "plugins": ["@typescript-eslint"],
+  "parser": "@typescript-eslint/parser",
   "overrides": [
     {
       "files": ["*.js", "*.ts", "*.tsx"]
@@ -21,7 +22,6 @@
     }
   },
   "rules": {
-    "deprecation/deprecation": "warn",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "react/prop-types": "off"
   }

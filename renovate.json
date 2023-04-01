@@ -10,8 +10,7 @@
   "packageRules": [
     {
       "packagePatterns": [
-        "node-sass",
-        "mini-css-extract-plugin"
+        "sass"
       ],
       "automerge": true,
       "automergeType": "branch"
