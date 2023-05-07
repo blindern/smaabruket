@@ -23,7 +23,7 @@
     "@typescript-eslint/eslint-plugin": "5.57.0",
     "@typescript-eslint/parser": "5.57.0",
     "@vitejs/plugin-react": "3.1.0",
-    "date-fns": "2.29.3",
+    "date-fns": "2.30.0",
     "domready": "1.0.8",
     "eslint": "8.37.0",
     "eslint-config-prettier": "8.8.0",
