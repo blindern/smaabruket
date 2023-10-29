@@ -1,5 +1,6 @@
+/// <reference lib="dom" />
+
 import domready from 'domready'
-import React from 'react'
 import { createRoot } from 'react-dom/client'
 import './app.scss'
 import Calendar from './Calendar'

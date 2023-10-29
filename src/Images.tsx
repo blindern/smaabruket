@@ -1,5 +1,3 @@
-import React from 'react'
-
 type ImageInfo = [string, string, string, string]
 
 const images: ImageInfo[] = [

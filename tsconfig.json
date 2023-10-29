@@ -1,17 +1,7 @@
 {
+  "extends": ["@tsconfig/strictest/tsconfig", "@tsconfig/bun/tsconfig"],
   "compilerOptions": {
-    "target": "ESNext",
-    "useDefineForClassFields": true,
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "esModuleInterop": false,
-    "skipLibCheck": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx"
+    "lib": ["DOM"]
   },
-  "include": ["src", "vite.config.ts"]
+  "exclude": ["dist/"]
 }

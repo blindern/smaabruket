@@ -15,6 +15,8 @@
     "popper.js": "1.16.1"
   },
   "devDependencies": {
+    "@tsconfig/bun": "1.0.1",
+    "@tsconfig/strictest": "2.0.2",
     "@types/date-fns": "2.6.0",
     "@types/domready": "1.0.1",
     "@types/jquery": "3.5.25",
