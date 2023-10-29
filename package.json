@@ -10,7 +10,7 @@
     "lint:fix": "bunx eslint --fix ."
   },
   "dependencies": {
-    "bootstrap": "4.6.2",
+    "bootstrap": "5.3.2",
     "jquery": "3.7.1",
     "popper.js": "1.16.1"
   },
