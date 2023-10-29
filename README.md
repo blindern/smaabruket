@@ -5,8 +5,8 @@ https://foreningenbs.no/smaabruket
 ## Installasjonsinstrukser
 
 ```bash
-npm ci
-npm run dev
+bun install
+bun run dev
 ```
 
 Data til kalender hentes fra applikasjonen https://github.com/blindern/smaabruket-availability-api

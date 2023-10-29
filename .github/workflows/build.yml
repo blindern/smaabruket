@@ -6,12 +6,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: oven-sh/setup-bun@v1
         with:
-          node-version: '18'
-      - run: npm ci
-      - run: npm run lint
-      - run: npm run build
+          bun-version: 1.0.7
+      - run: bun install --frozen-lockfile
+      - run: bun run lint
+      - run: bun run typecheck
+      - run: bun run build
       - name: Install SSH key
         if: github.ref == 'refs/heads/master'
         env:
