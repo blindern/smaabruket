@@ -9,9 +9,8 @@
   },
   "packageRules": [
     {
-      "packagePatterns": [
-        "sass"
-      ],
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["patch", "minor"],
       "automerge": true,
       "automergeType": "branch"
     }
