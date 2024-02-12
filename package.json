@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "@tsconfig/bun": "1.0.2",
-    "@tsconfig/strictest": "2.0.2",
+    "@tsconfig/strictest": "2.0.3",
     "@types/date-fns": "2.6.0",
     "@types/domready": "1.0.2",
     "@types/jquery": "3.5.29",
