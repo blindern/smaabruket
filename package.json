@@ -19,7 +19,7 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
-    "@tsconfig/bun": "1.0.3",
+    "@tsconfig/bun": "1.0.4",
     "@tsconfig/strictest": "2.0.3",
     "@types/date-fns": "2.6.0",
     "@types/domready": "1.0.2",
