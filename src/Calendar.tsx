@@ -90,17 +90,18 @@ function buildDays(first: string, until: string): Date[] {
   return result
 }
 
+// eslint-disable-next-line @typescript-eslint/consistent-indexed-object-style
 interface BookingTypes {
   [date: string]: string
 }
 
 function getBookingDateTypes(data: Booking[]) {
-  return data.reduce((acc, booking) => {
+  return data.reduce<BookingTypes>((acc, booking) => {
     buildDays(booking.from, booking.until).forEach((date) => {
       acc[format(date, 'yyyy-MM-dd')] = booking.type
     })
     return acc
-  }, {} as BookingTypes)
+  }, {})
 }
 
 function getWeekDays(firstDay: Date, bookingTypes: BookingTypes) {
@@ -111,7 +112,7 @@ function getWeekDays(firstDay: Date, bookingTypes: BookingTypes) {
 
     days.push({
       date,
-      type: bookingTypes[dateFormatted] || null,
+      type: bookingTypes[dateFormatted] ?? null,
     })
   }
 
@@ -177,7 +178,7 @@ const Calendar: React.FC = () => {
           })
         }
       })
-      .catch((err) => {
+      .catch((err: unknown) => {
         if (mounted) {
           console.error('Failed fetching data', err)
           setState({
@@ -254,6 +255,7 @@ const Calendar: React.FC = () => {
                     (weekIdx === 0 && dayIdx === 0)) && (
                     <>
                       . <span className='month'>{getMonthName(day.date)}</span>
+                      {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */}
                       {showYear && <> {format(day.date, 'yyyy')}</>}
                     </>
                   )}
