@@ -8,6 +8,7 @@ import reactRecommended from 'eslint-plugin-react/configs/recommended.js'
 import reactJsxRuntime from 'eslint-plugin-react/configs/jsx-runtime.js'
 
 export default tseslint.config(
+  // @ts-expect-error: Some weird types.
   prettier,
   js.configs.recommended,
   ...tseslint.configs.strictTypeChecked,
