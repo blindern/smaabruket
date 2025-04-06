@@ -35,7 +35,7 @@
     "eslint-plugin-react": "7.37.4",
     "globals": "^15.14.0",
     "prettier": "3.5.3",
-    "sass": "1.86.1",
+    "sass": "1.86.2",
     "typescript": "5.8.2",
     "typescript-eslint": "^8.18.2",
     "vite": "6.2.5"
