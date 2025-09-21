@@ -1,7 +1,4 @@
 {
-  "extends": ["@tsconfig/strictest/tsconfig", "@tsconfig/bun/tsconfig"],
-  "compilerOptions": {
-    "lib": ["DOM"]
-  },
+  "extends": ["@tsconfig/strictest/tsconfig", "@tsconfig/vite-react/tsconfig"],
   "exclude": ["dist/"]
 }
