@@ -13,6 +13,13 @@
       "matchUpdateTypes": ["patch", "minor"],
       "automerge": true,
       "automergeType": "branch"
+    },
+    {
+      "matchPackageNames": ["pnpm"],
+      "matchDepTypes": ["packageManager"],
+      "matchUpdateTypes": ["patch", "minor"],
+      "automerge": true,
+      "automergeType": "branch"
     }
   ]
 }
