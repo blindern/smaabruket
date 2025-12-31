@@ -16,8 +16,8 @@
     "domready": "1.0.8",
     "jquery": "3.7.1",
     "popper.js": "1.16.1",
-    "react": "19.1.1",
-    "react-dom": "19.1.1"
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
@@ -26,8 +26,8 @@
     "@tsconfig/vite-react": "^7.0.1",
     "@types/domready": "1.0.2",
     "@types/jquery": "3.5.33",
-    "@types/react": "19.1.17",
-    "@types/react-dom": "19.1.11",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "5.1.2",
     "eslint": "^9.17.0",
     "eslint-config-prettier": "10.1.8",
