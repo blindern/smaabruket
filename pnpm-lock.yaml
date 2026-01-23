@@ -10,7 +10,7 @@ importers:
     dependencies:
       bootstrap:
         specifier: 4.6.2
-        version: 4.6.2(jquery@3.7.1)(popper.js@1.16.1)
+        version: 4.6.2(jquery@4.0.0)(popper.js@1.16.1)
       date-fns:
         specifier: 4.1.0
         version: 4.1.0
@@ -18,8 +18,8 @@ importers:
         specifier: 1.0.8
         version: 1.0.8
       jquery:
-        specifier: 3.7.1
-        version: 3.7.1
+        specifier: 4.0.0
+        version: 4.0.0
       popper.js:
         specifier: 1.16.1
         version: 1.16.1
@@ -1289,8 +1289,8 @@ packages:
     resolution: {integrity: sha512-ekilCSN1jwRvIbgeg/57YFh8qQDNbwDb9xT/qu2DAHbFFZUicIl4ygVaAvzveMhMVr3LnpSKTNnwt8PoOfmKhQ==}
     hasBin: true
 
-  jquery@3.7.1:
-    resolution: {integrity: sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg==}
+  jquery@4.0.0:
+    resolution: {integrity: sha512-TXCHVR3Lb6TZdtw1l3RTLf8RBWVGexdxL6AC8/e0xZKEpBflBsjh9/8LXw+dkNFuOyW9B7iB3O1sP7hS0Kiacg==}
 
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
@@ -2392,9 +2392,9 @@ snapshots:
 
   baseline-browser-mapping@2.8.28: {}
 
-  bootstrap@4.6.2(jquery@3.7.1)(popper.js@1.16.1):
+  bootstrap@4.6.2(jquery@4.0.0)(popper.js@1.16.1):
     dependencies:
-      jquery: 3.7.1
+      jquery: 4.0.0
       popper.js: 1.16.1
 
   brace-expansion@1.1.12:
@@ -3020,7 +3020,7 @@ snapshots:
 
   jiti@2.6.1: {}
 
-  jquery@3.7.1: {}
+  jquery@4.0.0: {}
 
   js-tokens@4.0.0: {}
 
