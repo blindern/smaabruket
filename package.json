@@ -14,7 +14,7 @@
     "bootstrap": "4.6.2",
     "date-fns": "4.1.0",
     "domready": "1.0.8",
-    "jquery": "3.7.1",
+    "jquery": "4.0.0",
     "popper.js": "1.16.1",
     "react": "19.2.3",
     "react-dom": "19.2.3"
