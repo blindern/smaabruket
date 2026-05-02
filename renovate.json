@@ -1,25 +1,7 @@
 {
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "github>henrist/renovate-config:default"
-  ],
-  "lockFileMaintenance": {
-    "automerge": true,
-    "automergeType": "branch",
-    "enabled": true
-  },
-  "packageRules": [
-    {
-      "matchDepTypes": ["devDependencies"],
-      "matchUpdateTypes": ["patch", "minor"],
-      "automerge": true,
-      "automergeType": "branch"
-    },
-    {
-      "matchPackageNames": ["pnpm"],
-      "matchDepTypes": ["packageManager"],
-      "matchUpdateTypes": ["patch", "minor"],
-      "automerge": true,
-      "automergeType": "branch"
-    }
+    "github>henrist/renovate-config:default",
+    "github>henrist/renovate-config:automated"
   ]
 }
