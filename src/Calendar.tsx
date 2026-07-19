@@ -90,7 +90,6 @@ function buildDays(first: string, until: string): Date[] {
   return result
 }
 
-// eslint-disable-next-line @typescript-eslint/consistent-indexed-object-style
 interface BookingTypes {
   [date: string]: string
 }
@@ -241,11 +240,11 @@ const Calendar: React.FC = () => {
         </thead>
         <tbody>
           {weeks.map((week, weekIdx) => (
-            <tr key={weekIdx}>
+            <tr key={week.days[0].date.toISOString()}>
               <td className='uke'>{week.weeknumber}</td>
               {week.days.map((day, dayIdx) => (
                 <td
-                  key={dayIdx}
+                  key={day.date.toISOString()}
                   className={`${getClassNameOfType(day.type) ?? ''}${
                     isToday(day.date) ? ' idag' : ''
                   }`}
@@ -255,7 +254,6 @@ const Calendar: React.FC = () => {
                     (weekIdx === 0 && dayIdx === 0)) && (
                     <>
                       . <span className='month'>{getMonthName(day.date)}</span>
-                      {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */}
                       {showYear && <> {format(day.date, 'yyyy')}</>}
                     </>
                   )}
