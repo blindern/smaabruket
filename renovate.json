@@ -2,7 +2,7 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "github>henrist/renovate-config:default",
-    "github>henrist/renovate-config:automated",
+    "github>henrist/renovate-config:automated-aggressive",
     "customManagers:biomeVersions"
   ]
 }
