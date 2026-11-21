@@ -20,7 +20,7 @@
     "react-dom": "19.3.1"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.5.15",
+    "@biomejs/biome": "2.6.8",
     "@tsconfig/node24": "24.0.6",
     "@tsconfig/strictest": "2.0.9",
     "@tsconfig/vite-react": "8.1.2",
